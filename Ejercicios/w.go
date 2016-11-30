@@ -62,6 +62,10 @@ func ingresar() {
 	repetir := hashing
 	//Se repetira hasta que encuentre un lugar para aguardarlo
 	for hashingMasUno != true {
+		//Si llegara a sobre pasar el limite, que regrese a 1
+		if hashing > size {
+			hashing = 1
+		}
 		//Buscarlo, si existe regresa 'true' si no 'false'
 		b := encontrar(hashing)
 		//si llegara a encuentrar que le sume uno y lo vuelva buscar
