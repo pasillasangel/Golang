@@ -40,7 +40,7 @@ func main() {
 		case 3:
 			buscarDato()
 		case 4:
-			fmt.Println("\nSaliendo del programa.")
+			fmt.Println("\nSalio del programa.")
 		default:
 			fmt.Println("\nEliga una opcion correcta.")
 		}
@@ -48,7 +48,7 @@ func main() {
 }
 
 func ingresar() {
-	//Creando variable
+	//Creando variables
 	var guardar int
 	var hashingMasUno bool = false
 
@@ -58,17 +58,23 @@ func ingresar() {
 
 	//asignacion hash
 	hashing := (guardar % size) + 2
-
+	//pasar el valor
+	repetir := hashing
 	//Se repetira hasta que encuentre un lugar para aguardarlo
-	for i := 0; hashingMasUno != true; i++ {
-
-		//Buscarlo, si ya existe
-		b, _ := encontrar(hashing)
-
-		//si lo encuentra que le sume uno y lo vuelva buscar
+	for hashingMasUno != true {
+		//Buscarlo, si existe regresa 'true' si no 'false'
+		b := encontrar(hashing)
+		//si llegara a encuentrar que le sume uno y lo vuelva buscar
 		if b {
 			//probamos con el siguiente hashing (aumentar 1)
 			hashing++
+			//Si todos los lugares ocupados volvera a pasar
+			// por el valor incial, entonces no hay espacio
+			if repetir == hashing {
+				//Salir del ciclo
+				hashingMasUno = true
+				fmt.Println("#### No hay cupo en los bloques. ####")
+			}
 		} else {
 			//levantar la bandera
 			hashingMasUno = true
@@ -89,7 +95,7 @@ func ingresar() {
 	}
 }
 
-func encontrar(hh int) (bool, int) {
+func encontrar(hh int) bool {
 	//transformar de int a string
 	h := strconv.Itoa(hh)
 
@@ -115,7 +121,7 @@ func encontrar(hh int) (bool, int) {
 		}
 	}
 	//regresar valores bandera y repeticion de la palabra
-	return bandera, repeticion
+	return bandera
 }
 
 func escribir(s string, h string) {
@@ -144,7 +150,7 @@ func leer() {
 	valores := strings.Fields(dat)
 
 	//mensaje
-	fmt.Println("\t##### Leyendo Valores ######")
+	fmt.Print("\n\n\t##### Leyendo Valores ######")
 
 	//buscar el valor entre todo el archivo
 	for i := 0; i < len(valores)-1; i = i + 2 {
@@ -162,7 +168,7 @@ func buscarDato() {
 	var buscar int
 
 	//ingresar dato a buscar
-	fmt.Print("\nIngresar el dato a clave: ")
+	fmt.Print("\n\nIngresar el dato a clave: ")
 	fmt.Scan(&buscar)
 
 	//transformar de int a string
@@ -193,10 +199,10 @@ func buscarMetodo(busc string) {
 			c = i
 		}
 	}
-
+	//Si encuentra el valor lo muestra
 	if encontrado {
-		fmt.Println("\n\t##### Valor Encontrado #####")
-		fmt.Println("\tHash: " + valores[c] + ".")
+		fmt.Println("\n\n\t##### Valor Encontrado #####")
+		fmt.Print("\tHash: " + valores[c] + ".")
 		c++
 		fmt.Println("\tValor: " + valores[c] + ".")
 		fmt.Println("\n\t############################")
